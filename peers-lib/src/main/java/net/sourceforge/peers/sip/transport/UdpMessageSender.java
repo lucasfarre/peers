@@ -26,7 +26,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-
 import net.sourceforge.peers.Config;
 import net.sourceforge.peers.Logger;
 import net.sourceforge.peers.sip.RFC3261;
@@ -74,8 +73,8 @@ public class UdpMessageSender extends MessageSender {
                     try {
                         logger.debug(datagramSocket.getLocalAddress().toString());
                         datagramSocket.send(packet);
-                    } catch (Throwable t) {
-                        logger.error("throwable", new Exception(t));
+                    } catch (final IOException e) {
+                        logger.error("throwable", e);
                     }
                     return null;
                 }

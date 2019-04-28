@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/peers.iml" filepath="$PROJECT_DIR$/peers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-demo/peers-demo.iml" filepath="$PROJECT_DIR$/peers-demo/peers-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-doc/peers-doc.iml" filepath="$PROJECT_DIR$/peers-doc/peers-doc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-gui/peers-gui.iml" filepath="$PROJECT_DIR$/peers-gui/peers-gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-javaxsound/peers-javaxsound.iml" filepath="$PROJECT_DIR$/peers-javaxsound/peers-javaxsound.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-js/peers-js.iml" filepath="$PROJECT_DIR$/peers-js/peers-js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-jws/peers-jws.iml" filepath="$PROJECT_DIR$/peers-jws/peers-jws.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peers-lib/peers-lib.iml" filepath="$PROJECT_DIR$/peers-lib/peers-lib.iml" />
+    </modules>
+  </component>
+</project>

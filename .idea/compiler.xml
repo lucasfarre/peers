@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="peers-demo" />
+        <module name="peers-doc" />
+        <module name="peers-gui" />
+        <module name="peers-javaxsound" />
+        <module name="peers-js" />
+        <module name="peers-jws" />
+        <module name="peers-lib" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="peers" target="1.5" />
+      <module name="peers-demo" target="1.8" />
+      <module name="peers-doc" target="1.5" />
+      <module name="peers-gui" target="1.5" />
+      <module name="peers-javaxsound" target="1.5" />
+      <module name="peers-js" target="1.5" />
+      <module name="peers-jws" target="1.5" />
+      <module name="peers-lib" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

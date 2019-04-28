@@ -129,7 +129,7 @@ public class NonInviteClientTransaction extends NonInviteTransaction
             timer.schedule(new TimerE(), RFC3261.TIMER_T1);
         }
     
-        timer.schedule(new TimerF(), 64 * RFC3261.TIMER_T1);
+        timer.schedule(new TimerF(), 2 * RFC3261.TIMER_T1);
     }
     
     void sendRetrans(long delay) {

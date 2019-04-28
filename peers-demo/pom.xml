@@ -5,6 +5,18 @@
   <groupId>net.sourceforge.peers</groupId>
   <artifactId>peers-demo</artifactId>
   <version>0.5.1-SNAPSHOT</version>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <name>peers-demo</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -26,6 +38,16 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>peers-javaxsound</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.11.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.11.2</version>
     </dependency>
   </dependencies>
 </project>
