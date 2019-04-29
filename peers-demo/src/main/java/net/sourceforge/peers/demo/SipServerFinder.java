@@ -8,15 +8,16 @@ import net.sourceforge.peers.sip.transport.SipRequest;
 import net.sourceforge.peers.sip.transport.SipResponse;
 import org.apache.logging.log4j.LogManager;
 
-public class EventManager implements SipListener {
+public final class SipServerFinder implements SipListener {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
     private UserAgent userAgent;
-    private int currentHost = 1;
+    private int currentHost;
 
-    public EventManager() throws SocketException {
-        userAgent = buildUserAgent(buildServerIp());
+    private SipServerFinder() throws SocketException {
+        currentHost = 1;
+        userAgent = buildUserAgent();
         try {
             userAgent.register();
         } catch (final SipUriSyntaxException e) {
@@ -24,35 +25,37 @@ public class EventManager implements SipListener {
         }
     }
 
-    private UserAgent buildUserAgent(final String domain) throws SocketException {
-        return new UserAgent(this, new CustomConfig("192.168.86.25", domain),
+    private UserAgent buildUserAgent() throws SocketException {
+        return new UserAgent(this, new ConnectionConfig.Builder()
+            .withLocalIp("192.168.86.25")
+            .withUsername("User1")
+            .withPassword("user1")
+            .withServerDomain(currentServerDomain()).build(),
             new Log4J2Logger(), new NoOpSoundManager());
     }
 
-    private String buildServerIp() {
+    private String currentServerDomain() {
         return "192.168.86." + currentHost;
     }
 
-    // SipListener methods
-    
     @Override
-    public void registering(SipRequest sipRequest) {
+    public void registering(final SipRequest sipRequest) {
         LOGGER.info("Registering...");
     }
 
     @Override
-    public void registerSuccessful(SipResponse sipResponse) {
-        LOGGER.info("Successfully registered at {}", this::buildServerIp);
+    public void registerSuccessful(final SipResponse sipResponse) {
+        LOGGER.info("Successfully registered at {}", this::currentServerDomain);
         userAgent.close();
     }
 
     @Override
     public void registerFailed(final SipResponse sipResponse) {
-        LOGGER.info("Registration failed at {}", this::buildServerIp);
+        LOGGER.info("Registration failed at {}", this::currentServerDomain);
         try {
             currentHost++;
             userAgent.close();
-            userAgent = buildUserAgent(buildServerIp());
+            userAgent = buildUserAgent();
             userAgent.register();
         } catch (final SipUriSyntaxException | SocketException e) {
             LOGGER.error(e);
@@ -60,23 +63,33 @@ public class EventManager implements SipListener {
     }
 
     @Override
-    public void incomingCall(SipRequest sipRequest, SipResponse provResponse) { }
+    public void incomingCall(final SipRequest sipRequest, final SipResponse provResponse) {
+        // nothing to do
+    }
 
     @Override
-    public void remoteHangup(SipRequest sipRequest) { }
+    public void remoteHangup(final SipRequest sipRequest) {
+        // nothing to do
+    }
 
     @Override
-    public void ringing(SipResponse sipResponse) { }
+    public void ringing(final SipResponse sipResponse) {
+        // nothing to do
+    }
 
     @Override
-    public void calleePickup(SipResponse sipResponse) { }
+    public void calleePickup(final SipResponse sipResponse) {
+        // nothing to do
+    }
 
     @Override
-    public void error(SipResponse sipResponse) { }
+    public void error(final SipResponse sipResponse) {
+        // nothing to do
+    }
 
     public static void main(final String[] args) {
         try {
-            new EventManager();
+            new SipServerFinder();
         } catch (final SocketException e) {
             LOGGER.error(e);
         }

@@ -19,7 +19,7 @@ public class Log4J2Logger implements Logger {
 
     @Override
     public void error(final String message) {
-        LOGGER.error(message);
+        // LOGGER.error(message);
     }
 
     @Override

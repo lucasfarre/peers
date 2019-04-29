@@ -5,16 +5,24 @@ import java.net.UnknownHostException;
 import net.sourceforge.peers.Config;
 import net.sourceforge.peers.media.MediaMode;
 import net.sourceforge.peers.sip.syntaxencoding.SipURI;
+import org.apache.logging.log4j.LogManager;
 
-public class CustomConfig implements Config {
+public final class ConnectionConfig implements Config {
+
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
     private InetAddress publicIpAddress;
-    private String localIp;
-    private String domain;
 
-    public CustomConfig(final String localIp, final String domain) {
-        this.localIp = localIp;
-        this.domain = domain;
+    private final String localIp;
+    private final String serverDomain;
+    private final String username;
+    private final String password;
+
+    private ConnectionConfig(final Builder builder) {
+        localIp = builder.localIp;
+        serverDomain = builder.serverDomain;
+        username = builder.username;
+        password = builder.password;
     }
 
     @Override
@@ -27,8 +35,8 @@ public class CustomConfig implements Config {
             // if you have several network interfaces like I do,
             // select the right one after running ipconfig or ifconfig
             inetAddress = InetAddress.getByName(localIp);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+        } catch (final UnknownHostException e) {
+            LOGGER.error(e);
             return null;
         }
         return inetAddress;
@@ -41,17 +49,17 @@ public class CustomConfig implements Config {
 
     @Override
     public String getUserPart() {
-        return "User1";
+        return username;
     }
 
     @Override
     public String getDomain() {
-        return domain;
+        return serverDomain;
     }
 
     @Override
     public String getPassword() {
-        return "user1";
+        return password;
     }
 
     @Override
@@ -104,7 +112,6 @@ public class CustomConfig implements Config {
 
     @Override
     public void setDomain(String domain) {
-        this.domain = domain;
     }
 
     @Override
@@ -141,5 +148,37 @@ public class CustomConfig implements Config {
 
     @Override
     public void setAuthorizationUsername(String authorizationUsername) {
+    }
+
+    public static class Builder {
+
+        private String localIp;
+        private String serverDomain;
+        private String username;
+        private String password;
+
+        public Builder withLocalIp(final String localIp) {
+            this.localIp = localIp;
+            return this;
+        }
+
+        public Builder withServerDomain(final String serverDomain) {
+            this.serverDomain = serverDomain;
+            return this;
+        }
+
+        public Builder withUsername(final String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder withPassword(final String password) {
+            this.password = password;
+            return this;
+        }
+
+        public ConnectionConfig build() {
+            return new ConnectionConfig(this);
+        }
     }
 }
